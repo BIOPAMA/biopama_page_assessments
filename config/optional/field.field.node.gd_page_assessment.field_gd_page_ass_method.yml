@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gd_page_ass_method
+    - node.type.gd_page_assessment
+    - taxonomy.vocabulary.page_assessment_methodologies
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
+id: node.gd_page_assessment.field_gd_page_ass_method
+field_name: field_gd_page_ass_method
+entity_type: node
+bundle: gd_page_assessment
+label: 'Assessment Methodology'
+description: 'Name and version (if applicable) of the assessment methodology used.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      page_assessment_methodologies: page_assessment_methodologies
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

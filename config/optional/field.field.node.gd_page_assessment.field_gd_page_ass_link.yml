@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gd_page_ass_link
+    - node.type.gd_page_assessment
+  module:
+    - epp
+    - link
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
+id: node.gd_page_assessment.field_gd_page_ass_link
+field_name: field_gd_page_ass_link
+entity_type: node
+bundle: gd_page_assessment
+label: 'Assessment Link'
+description: 'Link to original assessment (e.g. summary report) if available.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

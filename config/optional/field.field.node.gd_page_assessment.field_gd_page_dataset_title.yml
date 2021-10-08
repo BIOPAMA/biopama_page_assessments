@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gd_page_dataset_title
+    - node.type.gd_page_assessment
+    - taxonomy.vocabulary.gd_page_datasets
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
+id: node.gd_page_assessment.field_gd_page_dataset_title
+field_name: field_gd_page_dataset_title
+entity_type: node
+bundle: gd_page_assessment
+label: 'Dataset Title'
+description: 'The title of the dataset, e.g. SAPA assessments Africa, SAPA assessments Kenya, or SAPA assessment of Mgahinga National Park in Uganda.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      gd_page_datasets: gd_page_datasets
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

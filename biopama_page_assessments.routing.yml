@@ -1,0 +1,6 @@
+biopama_page_assessments.content:
+  path: '/page_assessments'
+  defaults:
+    _controller: '\Drupal\biopama_page_assessments\Controller\PageAssessmentsController::content'
+  requirements:
+    _permission: 'access content'

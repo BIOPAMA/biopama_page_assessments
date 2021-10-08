@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.gd_page_datasets
+id: taxonomy_term.gd_page_datasets
+target_entity_type_id: taxonomy_term
+target_bundle: gd_page_datasets
+default_langcode: site_default
+language_alterable: false

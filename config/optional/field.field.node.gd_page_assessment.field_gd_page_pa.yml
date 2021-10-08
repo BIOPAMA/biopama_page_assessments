@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gd_page_pa
+    - node.type.gd_page_assessment
+    - node.type.protected_area
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
+id: node.gd_page_assessment.field_gd_page_pa
+field_name: field_gd_page_pa
+entity_type: node
+bundle: gd_page_assessment
+label: 'Protected Area'
+description: 'Name of the protected area or OECM as recorded in WDPA. Linked to WDPA ID.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      protected_area: protected_area
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

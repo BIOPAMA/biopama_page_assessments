@@ -1,0 +1,42 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_redirect
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+  entity_redirect:
+    redirect:
+      add:
+        active: false
+        destination: default
+        url: ''
+        external: ''
+        personalizable: true
+      edit:
+        active: false
+        destination: default
+        url: ''
+        external: ''
+        personalizable: true
+      delete:
+        active: false
+        destination: default
+        url: ''
+        external: ''
+        personalizable: true
+      anonymous:
+        active: false
+        destination: default
+        url: ''
+        external: ''
+name: 'PAGE Assessment'
+type: gd_page_assessment
+description: ''
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false

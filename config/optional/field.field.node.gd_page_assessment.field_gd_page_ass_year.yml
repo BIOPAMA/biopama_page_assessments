@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gd_page_ass_year
+    - node.type.gd_page_assessment
+  module:
+    - epp
+    - yearonly
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
+id: node.gd_page_assessment.field_gd_page_ass_year
+field_name: field_gd_page_ass_year
+entity_type: node
+bundle: gd_page_assessment
+label: 'Assessment Year'
+description: 'Year the assessment was completed.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  yearonly_from: '2000'
+  yearonly_to: now
+field_type: yearonly

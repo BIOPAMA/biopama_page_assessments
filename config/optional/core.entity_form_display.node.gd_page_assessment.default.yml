@@ -1,0 +1,110 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.browse_sources
+    - field.field.node.gd_page_assessment.body
+    - field.field.node.gd_page_assessment.field_gd_page_ass_link
+    - field.field.node.gd_page_assessment.field_gd_page_ass_method
+    - field.field.node.gd_page_assessment.field_gd_page_ass_year
+    - field.field.node.gd_page_assessment.field_gd_page_data_year
+    - field.field.node.gd_page_assessment.field_gd_page_dataset_title
+    - field.field.node.gd_page_assessment.field_gd_page_pa
+    - field.field.node.gd_page_assessment.field_gd_page_source
+    - node.type.gd_page_assessment
+  module:
+    - entity_browser
+    - link
+    - yearonly
+id: node.gd_page_assessment.default
+targetEntityType: node
+bundle: gd_page_assessment
+mode: default
+content:
+  field_gd_page_ass_link:
+    weight: 4
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_gd_page_ass_method:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: "Assessment Methodology\t"
+    third_party_settings: {  }
+    type: entity_reference_autocomplete_tags
+    region: content
+  field_gd_page_ass_year:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: yearonly_default
+    region: content
+  field_gd_page_data_year:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: yearonly_default
+    region: content
+  field_gd_page_dataset_title:
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: 'Dataset Title'
+    third_party_settings: {  }
+    type: entity_reference_autocomplete_tags
+    region: content
+  field_gd_page_pa:
+    weight: 1
+    settings:
+      entity_browser: protected_area_browser
+      field_widget_display: label
+      field_widget_remove: true
+      field_widget_replace: true
+      open: true
+      selection_mode: selection_append
+      field_widget_edit: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_gd_page_source:
+    weight: 7
+    settings:
+      entity_browser: browse_sources
+      field_widget_display: label
+      field_widget_remove: true
+      field_widget_replace: true
+      open: true
+      selection_mode: selection_append
+      field_widget_edit: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  body: true
+  created: true
+  langcode: true
+  moderation_state: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

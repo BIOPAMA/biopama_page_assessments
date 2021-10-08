@@ -1,0 +1,13 @@
+name: 'BIOPAMA PAGE Assessments'
+description: 'For the PAGE section, creates the PAGE Assessment content type and views'
+package: BIOPAMA
+type: module
+version: !!float 1
+core: 8.x
+dependencies:
+  - 'biopama_libraries:biopama_libraries'
+  - 'twig_tweak:twig_tweak'
+  - 'epp:epp'
+  - 'entity_browser:entity_browser'
+  - 'entity_redirect:entity_redirect'
+  - 'biopama_dashboards:biopama_dashboards'
