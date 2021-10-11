@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.gd_page_assessment.body
+    - field.field.node.gd_page_assessment.field_gd_page_ass_link
+    - field.field.node.gd_page_assessment.field_gd_page_ass_method
+    - field.field.node.gd_page_assessment.field_gd_page_ass_year
+    - field.field.node.gd_page_assessment.field_gd_page_data_year
+    - field.field.node.gd_page_assessment.field_gd_page_dataset_title
+    - field.field.node.gd_page_assessment.field_gd_page_pa
+    - field.field.node.gd_page_assessment.field_gd_page_source
+    - field.field.node.gd_page_assessment.field_page_related_document
+    - node.type.gd_page_assessment
+  module:
+    - text
+    - user
+id: node.gd_page_assessment.teaser
+targetEntityType: node
+bundle: gd_page_assessment
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_gd_page_ass_link: true
+  field_gd_page_ass_method: true
+  field_gd_page_ass_year: true
+  field_gd_page_data_year: true
+  field_gd_page_dataset_title: true
+  field_gd_page_pa: true
+  field_gd_page_source: true
+  field_page_related_document: true
+  langcode: true

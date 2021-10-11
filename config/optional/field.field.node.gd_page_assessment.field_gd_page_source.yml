@@ -16,7 +16,7 @@ field_name: field_gd_page_source
 entity_type: node
 bundle: gd_page_assessment
 label: Source
-description: 'Data Source - The organisation (government, non-government, community-based, indigenous peoples, private sector, etc.) that has submitted the data to GD-PAGE.'
+description: 'The organisation (government, non-government, community-based, indigenous peoples, private sector, etc.) that has submitted the data to the PAGE Database.'
 required: false
 translatable: false
 default_value: {  }

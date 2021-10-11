@@ -1,0 +1,10 @@
+status: 1
+pattern: '[current-date:html_date]-[random:hash:md2]'
+php: false
+escape: false
+dependencies:
+  config:
+    - node.type.gd_page_assessment
+preserve_titles: true
+save: 1
+chunk: '50'

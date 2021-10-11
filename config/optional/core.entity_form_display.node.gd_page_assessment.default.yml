@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.browse_sources
+    - entity_browser.browser.management_assessment_justification_browser
     - field.field.node.gd_page_assessment.body
     - field.field.node.gd_page_assessment.field_gd_page_ass_link
     - field.field.node.gd_page_assessment.field_gd_page_ass_method
@@ -11,10 +11,12 @@ dependencies:
     - field.field.node.gd_page_assessment.field_gd_page_dataset_title
     - field.field.node.gd_page_assessment.field_gd_page_pa
     - field.field.node.gd_page_assessment.field_gd_page_source
+    - field.field.node.gd_page_assessment.field_page_related_document
     - node.type.gd_page_assessment
   module:
     - entity_browser
     - link
+    - select_or_other
     - yearonly
 id: node.gd_page_assessment.default
 targetEntityType: node
@@ -22,7 +24,7 @@ bundle: gd_page_assessment
 mode: default
 content:
   field_gd_page_ass_link:
-    weight: 4
+    weight: 5
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -32,12 +34,10 @@ content:
   field_gd_page_ass_method:
     weight: 2
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: "Assessment Methodology\t"
+      select_element_type: select_or_other_select
+      sort_options: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete_tags
+    type: select_or_other_reference
     region: content
   field_gd_page_ass_year:
     weight: 3
@@ -46,20 +46,18 @@ content:
     type: yearonly_default
     region: content
   field_gd_page_data_year:
-    weight: 6
+    weight: 7
     settings: {  }
     third_party_settings: {  }
     type: yearonly_default
     region: content
   field_gd_page_dataset_title:
-    weight: 5
+    weight: 6
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: 'Dataset Title'
+      select_element_type: select_or_other_select
+      sort_options: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete_tags
+    type: select_or_other_reference
     region: content
   field_gd_page_pa:
     weight: 1
@@ -76,7 +74,7 @@ content:
     type: entity_browser_entity_reference
     region: content
   field_gd_page_source:
-    weight: 7
+    weight: 8
     settings:
       entity_browser: browse_sources
       field_widget_display: label
@@ -85,6 +83,20 @@ content:
       open: true
       selection_mode: selection_append
       field_widget_edit: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_page_related_document:
+    weight: 4
+    settings:
+      entity_browser: management_assessment_justification_browser
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_replace: false
+      open: false
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_browser_entity_reference
