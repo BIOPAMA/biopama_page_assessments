@@ -16,7 +16,7 @@ field_name: field_gd_page_data_year
 entity_type: node
 bundle: gd_page_assessment
 label: 'Dataset year of submission'
-description: 'The reference year, as a four digit number, indicating the year when the dataset was first submitted to the GD-PAGE.'
+description: 'The reference year, as a four digit number, indicating the year when the dataset was first submitted to the PAGE Database.'
 required: false
 translatable: false
 default_value: {  }

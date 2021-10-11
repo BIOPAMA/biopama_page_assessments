@@ -11,3 +11,4 @@ dependencies:
   - 'entity_browser:entity_browser'
   - 'entity_redirect:entity_redirect'
   - 'biopama_dashboards:biopama_dashboards'
+  - 'select_or_other:select_or_other'
