@@ -1,12 +1,13 @@
 page:
   js:
     js/map.js: {}
+    js/table.js: {}
     js/tools.js: {}
     https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js: {external: true, minified: true}
     https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js: {external: true}
   css:
     component:
-      css/pame/override.css: {}
+      css/page/override.css: {}
       css/override.css: {}
   dependencies:
     - core/drupal
