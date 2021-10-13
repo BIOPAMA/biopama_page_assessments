@@ -1,98 +1,77 @@
-var table_columns = {
-	"wdpa_id": {
-        name: "WDPA ID",
-        filter: null
-    },
-	"title": {
-        name: "Country",
-        filter: null
-    },
-	"iso2": {
-        name: "ISO2",
-        filter: {
-            label: "Country",
-            default_option: "All Countries",
-            default_value: "%",
-			get_value: function(json_response_data){
-				return jQuery(json_response_data["title"]).text();
-			}
-        }
-    },
-	"pa": {
-        name: "Protected Area",
-        filter: null
-    },    
-    "ass_link": {
-        name: "Link",
-        filter: null
-    },
-    "ass_method": {
-        name: "Methodology",
-        filter: {
-            label: "Tool",
-            default_option: "All Methodologies",
-            default_value: "%"
-        }
-    },
-    "ass_year": {
-        name: "Assessment Year",
-        filter: {
-            label: "Year",
-            default_option: "All Years",
-            default_value: "%"
-        }
-    },
-    "dataset_title": {
-        name: "Title",
-        filter: null
-    }
-    //"data_year": {
-    //     name: "Submission Year",
-    //     filter: null
-    // },
-    //"source": {
-    //     name: "Source",
-    //     filter: null
-    // }
-};
-
-var dt_table;
+var biopamaSimpleAssessmentTable;
 
 (function($){
-	var selectedFilters = {};
+	var table;
+	var filters = {};
+	var $spinner = $('#spinner');
 
-	var DOPAgetWdpaExtent = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_wdpa_extent?format=json&wdpa_id=";
+	function setupClearButton(){
+		$('#reset_filters').on('click',function(){
+			var currentURL = document.location.href;
+			if(currentURL.includes('?')) {
+				currentURL = currentURL.split('?')[0];
+				history.pushState({}, null, currentURL);
+			}
 
-	function retrieveDtColumns(cols){
-		var columns = [];
-		for(k in cols){
-			columns.push({
-				data: k
-			});
-		}
-		return columns;
+			for(k in filters){
+				filters[k] = null;
+			}
+			
+			setTableData();
+		});
 	}
 
+	function setupFilterChangeEvent(){
+		$('.cql_filters').on(
+			'change',
+			function(){
+				var currentURL = document.location.href;
+				var parameter = $(this).attr('param');
+				var value = $(this).val();
+				if(currentURL.includes(parameter)) {
+					currentURL = removeURLParameter(currentURL, parameter);
+				}
+				if(value == '%'){
+					filters[parameter] = null;
+				}
+				else{
+					filters[parameter] = value;
+					qsAddSymbol = currentURL.includes('?')? '&' : '?';
+					currentURL = `${currentURL}${qsAddSymbol}${parameter}=${value}`;
+				}
+				history.pushState({}, null, currentURL);
+				setTableData();
+			}
+		);
+	}
+	
 	function setupFilters(){		
-		var filteredColumns = [];
-		
 		var $filterContainer = $("#table-assessments-predefined-filters");
 		var $filterLabel, $filterItem, $filterItemDefaultOption;
-		for(k in table_columns){
-			if(table_columns[k].filter){
-				$filterLabel = $(`<label for="${k}">${table_columns[k].filter.label}</label>`);
+		for(k in response_fields_to_table_map){
+			if(response_fields_to_table_map[k].filter){
+				$filterLabel = $(`<label for="${k}">${response_fields_to_table_map[k].filter.label}</label>`);
 				$filterContainer.append($filterLabel);
 
 				$filterItem = $(`<select class="form-control cql_filters" id="${k}" param="${k}" tabindex="-1">`);
-				$filterItemDefaultOption = $(`<option value="${table_columns[k].filter.default_value}">${table_columns[k].filter.default_option}</option>`);
+				$filterItemDefaultOption = $(`<option value="${response_fields_to_table_map[k].filter.default_value}">${response_fields_to_table_map[k].filter.default_option}</option>`);
 				$filterItem.append($filterItemDefaultOption);
 				$filterContainer.append($filterItem);
 
-				selectedFilters[k] = null;
+				filters[k] = null;
+			}
+		}
+		$filterContainer.append($('<button class="btn btn-info" type="button" id="reset_filters">Clear All</button>'));
+
+		var url_string = new URL(window.location.href);
+		for(k in filters){
+			if(url_string.searchParams.get(k)){
+				filters[k] = url_string.searchParams.get(k);
 			}
 		}
 
-		$filterContainer.append($('<button class="btn btn-info" type="button" id="reset_filters">Clear All</button>'));
+		setupClearButton();
+		setupFilterChangeEvent();
 	}
 
 	function updateFilters(data){
@@ -103,8 +82,8 @@ var dt_table;
 		var generalFilterList = {}, option_text;
 		data.forEach((d, i) => {
 			for(k in d){
-				if(table_columns[k] && table_columns[k].filter){
-					option_text = (table_columns[k].filter.get_value)? table_columns[k].filter.get_value(d) : d[k];
+				if(response_fields_to_table_map[k] && response_fields_to_table_map[k].filter){
+					option_text = (response_fields_to_table_map[k].filter.get_value)? response_fields_to_table_map[k].filter.get_value(d) : d[k];
 					if(!generalFilterList[k]){
 						generalFilterList[k] = {};
 					}
@@ -113,23 +92,67 @@ var dt_table;
 			}
 		});
 
-		var specificSortedFilterList;
+		var generalFilterList, sortedKey, valueObj;
 		for(k in generalFilterList){
-			specificSortedFilterList = Object.keys(generalFilterList[k]).sort();
-			for(j in specificSortedFilterList){
-				$(`#${k}.cql_filters`).append($(`<option value="${generalFilterList[k][j].value}">${j}</option>`));
+			generalFilterListSortedKeys = Object.keys(generalFilterList[k]).sort();
+			for(i in generalFilterListSortedKeys){
+				sortedKey = generalFilterListSortedKeys[i];
+				valueObj = generalFilterList[k][sortedKey];
+				$(`#${k}.cql_filters`).append($(`<option value="${valueObj.value}">${sortedKey}</option>`));
 			}
-			// generalFilterList = Object.values(specificSortedFilterList);
-			// $(`#${k}.cql_filters`).add(Object.values(generalFilterList[k]));
+
+			if(filters[k]){
+				$(`#${k}.cql_filters`).val(filters[k]);
+			}
 		}
 	}
 
-	function createDTables(){
-		var $table = $('#table_assessments');
-		var $tableHeader = $('<thead><tr></tr></thead>');
+	function retrieveTableColumns(fields){
+		var columns = [];
+		for(k in fields){
+			columns.push({
+				data: k
+			});
+		}
+		return columns;
+	}
 
-		for(k in table_columns){
-			$('tr', $tableHeader).append($(`<th>${table_columns[k].name}</th>`));
+	function generateRestArgs(){
+		var cleanArgs = '';
+		for(var propName in filters){
+			if((filters[propName] != null) || (filters[propName] != undefined)){
+				cleanArgs += '&' + propName + '=' + filters[propName];
+			}
+		}
+		return cleanArgs;
+	}
+
+	function removeURLParameter(url, parameter){
+		var urlparts = url.split('?');
+		if(urlparts.length >= 2){
+			var prefix = encodeURIComponent(parameter)+'=';
+			var pars = urlparts[1].split(/[&;]/g);
+
+			for(var i = pars.length; i-- > 0;){
+				if(pars[i].includes(parameter)){
+					pars.splice(i, 1);
+				}
+			}
+
+			url = urlparts[0]+(pars.length > 0? '?' : '')+pars.join('&');
+			return url;
+		}
+		else{
+			return url;
+		}
+	}
+
+	function createTable(){
+		var $table = $('#table_assessments');
+
+		var $tableHeader = $('<thead><tr></tr></thead>');
+		for(k in response_fields_to_table_map){
+			$('tr', $tableHeader).append($(`<th>${response_fields_to_table_map[k].name}</th>`));
 		}
 
 		$table.append($tableHeader);
@@ -137,8 +160,8 @@ var dt_table;
 		$table.append($('tfooter'));
 
 		$table.show();
-		dt_table = $table.DataTable({
-			"columns" : retrieveDtColumns(table_columns),
+		table = $table.DataTable({
+			columns : retrieveTableColumns(response_fields_to_table_map),
 			dom: 'Bfrtip',
 			buttons: [
 				{
@@ -170,92 +193,51 @@ var dt_table;
 		});
 		
 		$('#table_assessments_filter').prepend($('.dt-buttons.btn-group'));
-		$('#spinner').hide();
+		$spinner.hide();
 	}
 
-	function generateRestArgs(){
-		var cleanArgs = '';
-		for(var propName in selectedFilters){
-			if((selectedFilters[propName] != null) || (selectedFilters[propName] != undefined)){
-				cleanArgs += '&' + propName + '=' + selectedFilters[propName];
-			}
-		}
-		return cleanArgs;
-	}
+	function handleClickOnTableRow(){
+		$('#table_assessments tbody tr').on('click', function(){
+			var wdpaId = parseInt($(this).find('td:first-child').text());
 
-	function removeURLParameter(url, parameter) {
-		var urlparts= url.split('?');   
-		if (urlparts.length>=2) {
+			$('#table_assessments tbody tr').removeClass('selected');
+			$(this).addClass('selected');
 
-			var prefix= encodeURIComponent(parameter)+'=';
-			var pars= urlparts[1].split(/[&;]/g);
+			biopamaSimpleMap.showOneById(wdpaId);
 
-			for (var i= pars.length; i-- > 0;) {    
-				if (pars[i].includes(parameter)) {  
-					pars.splice(i, 1);
-				}
-			}
-			url= urlparts[0]+'?'+pars.join('&');
-			return url;
-		} else {
-			return url;
-		}
+			$('html, body').animate({
+				scrollTop: $("#pame_assessments_map").offset().top - 100
+			}, 1000);
+		});
 	}
 
 	function setTableData(){
-		$('#spinner').show();
-		
+		$spinner.show();		
 		var restArguments = generateRestArgs();
 		
-		// var url = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_gdpame_biopama?format=json" + restArguments;
-		var url = "http://my.biopama.org/rest/gd_page?format=json" + restArguments;
-		
-		$.getJSON(url,function(response){
-			// var assessmentsByWDPA = ['in', 'WDPAID'];
-			// var currentCountries = [];
-
-			dt_table.clear().draw();
-			dt_table.rows.add(response).draw();
-			$('#spinner').hide();
-
-			// $.each(response.records,function(idx,obj){
-			// 	var thisWdpa = parseInt(obj.wdpaid, 10);
-			// 	if(assessmentsByWDPA.indexOf(thisWdpa) === -1) assessmentsByWDPA.push(thisWdpa); //collect all wdpa IDs
-			// 	if(currentCountries.indexOf(obj.iso3) === -1) currentCountries.push(obj.iso3); //collect all countries to zoom to the group
-			// });
-
-			// mymap.setFilter("wdpaRegionSelected", assessmentsByWDPA);	
-			// mymap.setLayoutProperty("wdpaRegionSelected", 'visibility', 'visible');	
-			// url = 'https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_bbox_for_countries_dateline_safe?iso3codes='+currentCountries.toString()+'&format=json&includemetadata=false';
+		var url = "http://my.biopama.org/rest/gd_page?format=json" + restArguments;		
+		$.getJSON(url,function(responseData){
+			table.clear().draw();
+			table.rows.add(responseData).draw();
 			
-			// $.getJSON(url,function(response){
-			// 	mymap.fitBounds(jQuery.parseJSON(response.records[0].get_bbox_for_countries_dateline_safe));
-			// });
+			// biopamaSimpleMap.showManyData(responseData);
 
-			// $('#table_assessments tbody tr').on('click',function(){
-			// 	var wdpa = parseInt($(this).find('td:first-child').text());
-			// 	zoomToPA(wdpa)
+			$spinner.hide();
 
-			// 	$('#table_assessments tbody tr').removeClass('selected');
-			// 	$(this).addClass('selected');
+			handleClickOnTableRow();
 
-			// 	mymap.setFilter("wdpaSelected", ['==', 'WDPAID', wdpa]);	
-			// 	mymap.setLayoutProperty("wdpaSelected", 'visibility', 'visible');	
-				
-			// 	mymap.on('click',function(){
-			// 		mymap.setLayoutProperty("wdpaSelected", 'visibility', 'none');	
-			// 	},200);
-			// 	$('html, body').animate({
-			// 		scrollTop: $("#pame_assessments_map").offset().top - 100
-			// 	}, 1000);
-			// });
-
-			updateFilters(response);
+			updateFilters(responseData);
 		});	
 	}
 
+	function initAssessmentTable(inputFields){
+		response_fields_to_table_map = inputFields;
+		setupFilters();
+		createTable();
+		setTableData();
+	}
 
-	setupFilters();
-	createDTables();
-	setTableData();
+	biopamaSimpleAssessmentTable = {
+		initAssessmentTable: initAssessmentTable
+	}
 })(jQuery);
