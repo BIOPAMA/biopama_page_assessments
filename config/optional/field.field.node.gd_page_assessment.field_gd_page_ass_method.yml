@@ -19,7 +19,7 @@ label: 'Assessment Methodology'
 description: 'Name and version (if applicable) of the assessment methodology used.'
 required: false
 translatable: false
-default_value: {  }
+default_value: { }
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

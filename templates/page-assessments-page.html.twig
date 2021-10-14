@@ -5,30 +5,32 @@
 {{ attach_library( 'biopama_dashboards/pame_tools' ) }}
 
 <header class="masthead text-left text-white">
-	<div id="bkgd-linear" class="masthead-linear"></div>
-	<div id="bkgd-img" class="masthead-img" style="display:none;"></div>
-		<div class="masthead-content">
-			<div class="row">
+    <div id="bkgd-linear" class="masthead-linear"></div>
+    <div id="bkgd-img" class="masthead-img" style="display:none;"></div>
+    <div class="masthead-content">
+        <div class="row">
 
-				<div class="col-lg-2 header-text">
-					{% include 'page-assessments-menu.html.twig' %}
-				</div>
-				<div class="col-lg-10 header-table-cards">
-					<div class="header-table-wrap">
-						<h2 class="pame-resources-header-title">Assessments</h2>
-							<div id="data_source" class="text-left">
-								<p>Data Source: <b><a class="btn btn-light" href="https://pame.protectedplanet.net/" target="_blank">Global Database on Protected Area Management Effectiveness (GD-PAME, last updated on 3 February 2021)</a></b></p>
-							</div>
-							{% include 'page-assessments-filter.html.twig' %}
-					</div>
-					{% include 'page-assessments-map.html.twig' %}
-					{% include 'page-assessments-table.html.twig' %}
-				</div>
-			</div>
-		</div>
-		<div class="wave-corner">
-			<img src="{{ image_path }}color_wave.png"/>
-		</div>
+            <div class="col-lg-2 header-text">
+                {% include 'page-assessments-menu.html.twig' %}
+            </div>
+            <div class="col-lg-10 header-table-cards">
+                <div class="header-table-wrap">
+                    <h2 class="pame-resources-header-title">Assessments</h2>
+                    <div id="data_source" class="text-left">
+                        <p>Data Source: <b><a class="btn btn-light" href="https://pame.protectedplanet.net/"
+                                              target="_blank">Global Database on Protected Area Management Effectiveness
+                                    (GD-PAME, last updated on 3 February 2021)</a></b></p>
+                    </div>
+                    {% include 'page-assessments-filter.html.twig' %}
+                </div>
+                {% include 'page-assessments-map.html.twig' %}
+                {% include 'page-assessments-table.html.twig' %}
+            </div>
+        </div>
+    </div>
+    <div class="wave-corner">
+        <img src="{{ image_path }}color_wave.png"/>
+    </div>
 </header>
 
 <button id="myBtn_scrollTop" title="Go to top"><i class="fas fa-arrow-up fa-2x"></i></button>

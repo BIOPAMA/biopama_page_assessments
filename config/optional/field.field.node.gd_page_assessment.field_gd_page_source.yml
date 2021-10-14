@@ -19,7 +19,7 @@ label: Source
 description: 'The organisation (government, non-government, community-based, indigenous peoples, private sector, etc.) that has submitted the data to the PAGE Database.'
 required: false
 translatable: false
-default_value: {  }
+default_value: { }
 default_value_callback: ''
 settings:
   handler: 'default:node'

@@ -8,11 +8,11 @@ id: node.field_gd_page_data_year
 field_name: field_gd_page_data_year
 entity_type: node
 type: yearonly
-settings: {  }
+settings: { }
 module: yearonly
 locked: false
 cardinality: 1
 translatable: true
-indexes: {  }
+indexes: { }
 persist_with_no_fields: false
 custom_storage: false

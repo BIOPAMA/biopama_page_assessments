@@ -1,13 +1,13 @@
 page:
   js:
-    js/map.js: {}
-    js/tools.js: {}
-    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js: {external: true, minified: true}
-    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js: {external: true}
+    js/map.js: { }
+    js/tools.js: { }
+    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js: { external: true, minified: true }
+    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js: { external: true }
   css:
     component:
-      css/pame/override.css: {}
-      css/override.css: {}
+      css/pame/override.css: { }
+      css/override.css: { }
   dependencies:
     - core/drupal
     - core/drupal.ajax
@@ -18,13 +18,13 @@ page:
     - biopama_libraries/mapbox
 
 
-# biopama_esa_header:
-#   css:
-#     component:
-#       css/header.css: {}
-#   dependencies:
-#     - biopama_esa_blocks/biopama_esa_menu
-    
+    # biopama_esa_header:
+    #   css:
+    #     component:
+    #       css/header.css: {}
+    #   dependencies:
+    #     - biopama_esa_blocks/biopama_esa_menu
+
 # biopama_esa_menu:
 #   js:
 #     js/esa_menu.js: {}

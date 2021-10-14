@@ -3,29 +3,31 @@
 /**
  * implementing hook_theme().
  */
-function biopama_page_assessments_theme($existing, $type, $theme, $path) {
-  return  [
-            'page_assessments_page' => [
-              'variables' => ['test_var' => NULL],
-            ],
-			'page_assessments_filter' => [],
-			'page_assessments_map' => [],
-			'page_assessments_menu' => [],
-			'page_assessments_table' => [],
-          ];
+function biopama_page_assessments_theme($existing, $type, $theme, $path)
+{
+    return [
+        'page_assessments_page' => [
+            'variables' => ['test_var' => NULL],
+        ],
+        'page_assessments_filter' => [],
+        'page_assessments_map' => [],
+        'page_assessments_menu' => [],
+        'page_assessments_table' => [],
+    ];
 }
 
-function biopama_page_assessments_uninstall() {
+function biopama_page_assessments_uninstall()
+{
 
-  // Delete all nodes of given content type.
-  $storage_handler = \Drupal::entityTypeManager()
-    ->getStorage('node');
-  $nodes = $storage_handler->loadByProperties(['type' => 'gd_page_assessment']);
-  $storage_handler->delete($nodes);
+    // Delete all nodes of given content type.
+    $storage_handler = \Drupal::entityTypeManager()
+        ->getStorage('node');
+    $nodes = $storage_handler->loadByProperties(['type' => 'gd_page_assessment']);
+    $storage_handler->delete($nodes);
 
-  // Delete content type.
-  $content_type = \Drupal::entityTypeManager()
-    ->getStorage('node_type')
-    ->load('gd_page_assessment');
-  $content_type->delete();
+    // Delete content type.
+    $content_type = \Drupal::entityTypeManager()
+        ->getStorage('node_type')
+        ->load('gd_page_assessment');
+    $content_type->delete();
 }

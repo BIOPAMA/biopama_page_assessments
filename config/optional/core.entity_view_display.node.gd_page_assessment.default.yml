@@ -26,8 +26,8 @@ content:
     label: hidden
     type: text_default
     weight: 101
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     region: content
   field_gd_page_ass_link:
     weight: 105
@@ -38,7 +38,7 @@ content:
       url_plain: false
       rel: ''
       target: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link
     region: content
   field_gd_page_ass_method:
@@ -46,21 +46,21 @@ content:
     label: above
     settings:
       link: true
-    third_party_settings: {  }
+    third_party_settings: { }
     type: entity_reference_label
     region: content
   field_gd_page_ass_year:
     weight: 104
     label: above
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     type: yearonly_default
     region: content
   field_gd_page_data_year:
     weight: 108
     label: above
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     type: yearonly_default
     region: content
   field_gd_page_dataset_title:
@@ -68,7 +68,7 @@ content:
     label: above
     settings:
       link: true
-    third_party_settings: {  }
+    third_party_settings: { }
     type: entity_reference_label
     region: content
   field_gd_page_pa:
@@ -76,7 +76,7 @@ content:
     label: above
     settings:
       link: true
-    third_party_settings: {  }
+    third_party_settings: { }
     type: entity_reference_label
     region: content
   field_gd_page_source:
@@ -84,7 +84,7 @@ content:
     label: above
     settings:
       link: true
-    third_party_settings: {  }
+    third_party_settings: { }
     type: entity_reference_label
     region: content
   field_page_related_document:
@@ -92,13 +92,13 @@ content:
     label: above
     settings:
       link: true
-    third_party_settings: {  }
+    third_party_settings: { }
     type: entity_reference_label
     region: content
   links:
     weight: 100
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     region: content
 hidden:
   langcode: true

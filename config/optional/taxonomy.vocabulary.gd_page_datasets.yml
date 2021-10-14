@@ -1,6 +1,6 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies: { }
 name: 'GD PAGE Datasets'
 vid: gd_page_datasets
 description: ''

@@ -1,6 +1,6 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies: { }
 name: 'PAGE Assessment Methodologies'
 vid: page_assessment_methodologies
 description: ''

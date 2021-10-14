@@ -19,7 +19,7 @@ label: 'Protected Area'
 description: 'Name of the protected area or OECM as recorded in WDPA. Linked to WDPA ID.'
 required: true
 translatable: false
-default_value: {  }
+default_value: { }
 default_value_callback: ''
 settings:
   handler: 'default:node'

@@ -19,7 +19,7 @@ label: 'Dataset Title'
 description: 'The title of the dataset, e.g. SAPA assessments Africa, SAPA assessments Kenya, or SAPA assessment of Mgahinga National Park in Uganda.'
 required: false
 translatable: false
-default_value: {  }
+default_value: { }
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

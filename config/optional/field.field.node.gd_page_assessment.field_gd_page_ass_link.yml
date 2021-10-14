@@ -19,7 +19,7 @@ label: 'Assessment Link'
 description: 'Link to original assessment (e.g. summary report) if available.'
 required: false
 translatable: false
-default_value: {  }
+default_value: { }
 default_value_callback: ''
 settings:
   link_type: 16

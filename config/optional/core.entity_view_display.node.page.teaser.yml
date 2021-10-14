@@ -17,8 +17,8 @@ mode: teaser
 content:
   addtoany:
     weight: 101
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     region: content
   body:
     label: hidden
@@ -27,11 +27,11 @@ content:
     region: content
     settings:
       trim_length: 600
-    third_party_settings: {  }
+    third_party_settings: { }
   links:
     weight: 101
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
 hidden:
   langcode: true

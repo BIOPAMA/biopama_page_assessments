@@ -28,7 +28,7 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: link_default
     region: content
   field_gd_page_ass_method:
@@ -36,19 +36,19 @@ content:
     settings:
       select_element_type: select_or_other_select
       sort_options: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: select_or_other_reference
     region: content
   field_gd_page_ass_year:
     weight: 3
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     type: yearonly_default
     region: content
   field_gd_page_data_year:
     weight: 7
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     type: yearonly_default
     region: content
   field_gd_page_dataset_title:
@@ -56,7 +56,7 @@ content:
     settings:
       select_element_type: select_or_other_select
       sort_options: ''
-    third_party_settings: {  }
+    third_party_settings: { }
     type: select_or_other_reference
     region: content
   field_gd_page_pa:
@@ -69,8 +69,8 @@ content:
       open: true
       selection_mode: selection_append
       field_widget_edit: false
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
+      field_widget_display_settings: { }
+    third_party_settings: { }
     type: entity_browser_entity_reference
     region: content
   field_gd_page_source:
@@ -83,8 +83,8 @@ content:
       open: true
       selection_mode: selection_append
       field_widget_edit: false
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
+      field_widget_display_settings: { }
+    third_party_settings: { }
     type: entity_browser_entity_reference
     region: content
   field_page_related_document:
@@ -97,8 +97,8 @@ content:
       selection_mode: selection_append
       field_widget_replace: false
       open: false
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
+      field_widget_display_settings: { }
+    third_party_settings: { }
     type: entity_browser_entity_reference
     region: content
   title:
@@ -108,7 +108,7 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings: { }
 hidden:
   body: true
   created: true

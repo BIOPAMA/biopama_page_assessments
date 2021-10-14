@@ -6,7 +6,7 @@ dependencies:
     - menu_ui
 third_party_settings:
   menu_ui:
-    available_menus: {  }
+    available_menus: { }
     parent: ''
   entity_redirect:
     redirect:

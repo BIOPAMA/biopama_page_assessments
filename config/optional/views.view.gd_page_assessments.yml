@@ -38,7 +38,7 @@ display:
           perm: 'access content'
       cache:
         type: tag
-        options: {  }
+        options: { }
       query:
         type: views_query
         options:
@@ -46,7 +46,7 @@ display:
           distinct: false
           replica: false
           query_comment: ''
-          query_tags: {  }
+          query_tags: { }
           contextual_filters_or: false
       exposed_form:
         type: basic
@@ -79,7 +79,7 @@ display:
       style:
         type: table
         options:
-          grouping: {  }
+          grouping: { }
           row_class: ''
           default_row_class: true
           override: true
@@ -209,7 +209,7 @@ display:
           settings:
             link: true
           group_column: target_id
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -272,7 +272,7 @@ display:
           settings:
             link_to_entity: true
           group_column: value
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -341,7 +341,7 @@ display:
             rel: nofollow
             target: _blank
           group_column: ''
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -404,7 +404,7 @@ display:
           settings:
             link: false
           group_column: target_id
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -464,9 +464,9 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: yearonly_default
-          settings: {  }
+          settings: { }
           group_column: value
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -529,7 +529,7 @@ display:
           settings:
             link: false
           group_column: target_id
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -589,9 +589,9 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: yearonly_default
-          settings: {  }
+          settings: { }
           group_column: value
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -654,7 +654,7 @@ display:
           settings:
             link: false
           group_column: target_id
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -676,7 +676,7 @@ display:
           expose:
             operator: ''
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: { }
           group: 1
         type:
           id: type
@@ -689,8 +689,8 @@ display:
           plugin_id: bundle
           expose:
             operator_limit_selection: false
-            operator_list: {  }
-      sorts: {  }
+            operator_list: { }
+      sorts: { }
       title: 'PAGE Assessments'
       header:
         area:
@@ -706,8 +706,8 @@ display:
             value: "<a href=\"node/add/gd_page_assessment\"  class=\"use-ajax add-policy fancy_login_show_popup\" data-dialog-type=\"dialog\" data-dialog-renderer=\"off_canvas\" data-dialog-options=\"{&quot;width&quot;:400}\">\r\n    <i class=\"fas fa-plus\"></i> Add a PAGE assessment\r\n</a>"
             format: code_text
           plugin_id: text
-      footer: {  }
-      empty: {  }
+      footer: { }
+      empty: { }
       relationships:
         field_gd_page_pa:
           id: field_gd_page_pa
@@ -727,9 +727,9 @@ display:
           admin_label: 'field_pa_country: Content'
           required: true
           plugin_id: standard
-      arguments: {  }
+      arguments: { }
       display_extenders:
-        library_in_views_display_extender: {  }
+        library_in_views_display_extender: { }
     cache_metadata:
       max-age: -1
       contexts:
@@ -753,7 +753,7 @@ display:
     position: 1
     display_options:
       display_extenders:
-        library_in_views_display_extender: {  }
+        library_in_views_display_extender: { }
       path: page-assessments
     cache_metadata:
       max-age: -1
@@ -778,7 +778,7 @@ display:
     position: 2
     display_options:
       display_extenders:
-        library_in_views_display_extender: {  }
+        library_in_views_display_extender: { }
       path: rest/gd_page
       style:
         type: data_export

@@ -19,7 +19,7 @@ label: 'Assessment Year'
 description: 'Year the assessment was completed.'
 required: false
 translatable: false
-default_value: {  }
+default_value: { }
 default_value_callback: ''
 settings:
   yearonly_from: '2000'
