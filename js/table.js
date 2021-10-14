@@ -1,3 +1,5 @@
+var gdRestServiceUrl = "http://my.biopama.org/rest/gd_page";
+
 var biopamaAssessmentTable;
 
 (function($){
@@ -220,14 +222,12 @@ var biopamaAssessmentTable;
 		$spinner.show();		
 		var restArguments = generateRestArgs();
 		
-		var url = "http://my.biopama.org/rest/gd_page?format=json" + restArguments;		
+		var url = gdRestServiceUrl+"?format=json"+restArguments;
 		$.getJSON(url,function(responseData){
 			table.clear().draw();
 			table.rows.add(responseData).draw();
 			
-			if(assessmentMap){
-				assessmentMap.showFeaturesByIsoAndId(responseData);
-			}
+			showRowsOnMap(responseData);
 
 			$spinner.hide();
 
@@ -235,6 +235,21 @@ var biopamaAssessmentTable;
 
 			updateFilters(responseData);
 		});	
+	}
+
+	function showRowsOnMap(responseData){
+		// Initialize the variables used to display the right layer and the right viewport on the map.
+		var wdpaIds = [];
+		var iso3Codes = [];
+		$.each(responseData,function(idx, obj){
+			var thisWdpa = parseInt(obj.wdpa_id, 10);
+			if(wdpaIds.indexOf(thisWdpa) === -1) wdpaIds.push(thisWdpa); //collect all wdpa IDs
+			if(iso3Codes.indexOf(obj.iso3) === -1) iso3Codes.push(obj.iso3); //collect all countries to zoom to the group
+		});
+
+		if(assessmentMap){
+			assessmentMap.showFeaturesByIdAndIso(wdpaIds, iso3Codes);
+		}
 	}
 
 	function initAssessmentTable(inputFields, map){

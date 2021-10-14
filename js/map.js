@@ -1,8 +1,9 @@
 var mapPolyHostUrl = "https://tiles.biopama.org/BIOPAMA_poly";
-var mapPaLayer = "2021_July_ACP";
 var getFeatureInfoUrl = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_gdpame_biopama";
 var DOPAgetWdpaExtentUrl = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_wdpa_extent";
 var getCountryBboxUrl = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_bbox_for_countries_dateline_safe";
+
+var mapPaLayer = "2021_July_ACP";
 
 var biopamaAssessmentMap;
 
@@ -155,15 +156,9 @@ var biopamaAssessmentMap;
 		);
 	}
 
-	function showFeaturesByIsoAndId(responseData){
+	function showFeaturesByIdAndIso(wdpaIds, currentCountries){
 		// Initialize the variables used to display the right layer and the right viewport on the map.
-		var assessmentsByWDPA = ['in', 'WDPAID'];
-		var currentCountries = [];
-		$.each(responseData,function(idx, obj){
-			var thisWdpa = parseInt(obj.wdpa_id, 10);
-			if(assessmentsByWDPA.indexOf(thisWdpa) === -1) assessmentsByWDPA.push(thisWdpa); //collect all wdpa IDs
-			if(currentCountries.indexOf(obj.iso3) === -1) currentCountries.push(obj.iso3); //collect all countries to zoom to the group
-		});
+		var assessmentsByWDPA = ['in', 'WDPAID'].concat(wdpaIds);
 
 		// Set the "wdpaRegionSelected" layer visible.
 		map.setFilter("wdpaRegionSelected", assessmentsByWDPA);	
@@ -199,6 +194,6 @@ var biopamaAssessmentMap;
 	biopamaAssessmentMap = {
 		initMap: initMap,
 		showFeatureById: showFeatureById,
-		showFeaturesByIsoAndId: showFeaturesByIsoAndId
+		showFeaturesByIdAndIso: showFeaturesByIdAndIso
 	}
 })(jQuery);
