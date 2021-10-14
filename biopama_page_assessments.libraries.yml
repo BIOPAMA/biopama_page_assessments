@@ -1,38 +1,3 @@
-map:
-  js:
-    js/map.js: {}
-    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js: {external: true, minified: true}
-    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js: {external: true}
-  css:
-    component:
-      css/page/override.css: {}
-      css/override.css: {}
-  dependencies:
-    - core/drupal
-    - core/drupal.ajax
-    - core/jquery
-    - core/jquery.once
-    - biopama_libraries/mapbox
-    
-
-table:
-  js:
-    js/table.js: {}
-    js/tools.js: {}
-    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js: {external: true, minified: true}
-    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js: {external: true}
-  css:
-    component:
-      css/page/override.css: {}
-      css/override.css: {}
-  dependencies:
-    - core/drupal
-    - core/drupal.ajax
-    - core/jquery
-    - core/jquery.once
-    - core/drupalSettings
-    - biopama_libraries/datatables
-
 main:
   js:
     js/main.js: {}
@@ -41,3 +6,37 @@ main:
     - core/jquery.once
     - biopama_page_assessments/table
     - biopama_page_assessments/map
+
+map:
+  js:
+    js/map.js: {}
+    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js: {external: true, minified: true}
+    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js: {external: true}
+  # css:
+  #   component:
+  #     css/page/override.css: {}
+  #     css/override.css: {}
+  dependencies:
+    # - core/drupal
+    # - core/drupal.ajax
+    - core/jquery
+    - core/jquery.once
+    - biopama_libraries/mapbox
+
+table:
+  js:
+    js/table.js: {}
+    # js/tools.js: {}
+    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js: {external: true, minified: true}
+    https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js: {external: true}
+  # css:
+  #   component:
+  #     css/page/override.css: {}
+  #     css/override.css: {}
+  dependencies:
+    # - core/drupal
+    # - core/drupal.ajax
+    - core/jquery
+    - core/jquery.once
+    # - core/drupalSettings
+    - biopama_libraries/datatables

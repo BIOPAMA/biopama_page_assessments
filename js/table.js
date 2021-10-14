@@ -1,9 +1,10 @@
-var biopamaSimpleAssessmentTable;
+var biopamaAssessmentTable;
 
 (function($){
 	var table;
 	var filters = {};
 	var $spinner = $('#spinner');
+	var assessmentMap;
 
 	function setupClearButton(){
 		$('#reset_filters').on('click',function(){
@@ -198,16 +199,20 @@ var biopamaSimpleAssessmentTable;
 
 	function handleClickOnTableRow(){
 		$('#table_assessments tbody tr').on('click', function(){
-			var wdpaId = parseInt($(this).find('td:first-child').text());
+			if(!$(this).hasClass('selected')){
+				var wdpaId = parseInt($(this).find('td:first-child').text());
 
-			$('#table_assessments tbody tr').removeClass('selected');
-			$(this).addClass('selected');
+				$('#table_assessments tbody tr').removeClass('selected');
+				$(this).addClass('selected');
 
-			biopamaSimpleMap.showOneById(wdpaId);
+				if(assessmentMap){
+					assessmentMap.showFeatureById(wdpaId);
+				}
 
-			$('html, body').animate({
-				scrollTop: $("#pame_assessments_map").offset().top - 100
-			}, 1000);
+				$('html, body').animate({
+					scrollTop: $("#pame_assessments_map").offset().top - 100
+				}, 1000);
+			}
 		});
 	}
 
@@ -220,7 +225,9 @@ var biopamaSimpleAssessmentTable;
 			table.clear().draw();
 			table.rows.add(responseData).draw();
 			
-			// biopamaSimpleMap.showManyData(responseData);
+			if(assessmentMap){
+				assessmentMap.showFeaturesByIsoAndId(responseData);
+			}
 
 			$spinner.hide();
 
@@ -230,14 +237,15 @@ var biopamaSimpleAssessmentTable;
 		});	
 	}
 
-	function initAssessmentTable(inputFields){
+	function initAssessmentTable(inputFields, map){
 		response_fields_to_table_map = inputFields;
+		assessmentMap = map;
 		setupFilters();
 		createTable();
 		setTableData();
 	}
 
-	biopamaSimpleAssessmentTable = {
+	biopamaAssessmentTable = {
 		initAssessmentTable: initAssessmentTable
 	}
 })(jQuery);

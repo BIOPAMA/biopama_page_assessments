@@ -1,14 +1,15 @@
-var mapPolyHostURL = "https://tiles.biopama.org/BIOPAMA_poly";
+var mapPolyHostUrl = "https://tiles.biopama.org/BIOPAMA_poly";
 var mapPaLayer = "2021_July_ACP";
-var getFeatureInfoURL = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_gdpame_biopama";
-var DOPAgetWdpaExtent = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_wdpa_extent";
+var getFeatureInfoUrl = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_gdpame_biopama";
+var DOPAgetWdpaExtentUrl = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_wdpa_extent";
+var getCountryBboxUrl = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_bbox_for_countries_dateline_safe";
 
-var biopamaSimpleMap;
+var biopamaAssessmentMap;
 
 (function($){
+	
 	var map;
-
-	function initMap(callback, callbackParams){
+	function initMap(onceMapLoadedcallback){
 		mapboxgl.accessToken = 'pk.eyJ1IjoiYmxpc2h0ZW4iLCJhIjoiMEZrNzFqRSJ9.0QBRA2HxTb8YHErUFRMPZg';
 		map = new mapboxgl.Map({
 			container: 'pame_assessments_map',
@@ -23,7 +24,7 @@ var biopamaSimpleMap;
 		var mapInteractionControls = ["touchZoomRotate", "doubleClickZoom", "keyboard", "dragPan", "dragRotate", "boxZoom", "scrollZoom"];
 		mapInteractionControls.forEach(element => map[element].disable());
 
-		$('#page_assessments_map').append('<div id="help-text">Double-click to pan and zoom the map.</div>');
+		$('#pame_assessments_map').append('<div id="help-text">Double-click to pan and zoom the map.</div>');
 		$('#help-text').fadeIn();
 
 		var mapInteractionControls = ["touchZoomRotate", "doubleClickZoom", "keyboard", "dragPan", "dragRotate", "boxZoom", "scrollZoom"];
@@ -40,7 +41,7 @@ var biopamaSimpleMap;
 		map.on('load', function(){		
 			map.addSource("BIOPAMA_Poly", {
 				"type": 'vector',
-				"tiles": [mapPolyHostURL+"/{z}/{x}/{y}.pbf"],
+				"tiles": [mapPolyHostUrl+"/{z}/{x}/{y}.pbf"],
 				"minZoom": 0,
 				"maxZoom": 12,
 			});
@@ -99,8 +100,8 @@ var biopamaSimpleMap;
 			map.on('click', getFeatureInfo);
 
 			// Callback to be eventually executed when the map has been successfully loaded.
-			if(callback && callbackParams){
-				callback(callbackParams);
+			if(onceMapLoadedcallback){
+				onceMapLoadedcallback();
 			}
 		});
 	}
@@ -115,24 +116,31 @@ var biopamaSimpleMap;
 
 		if(features.length > 0){
 			$.getJSON(
-				getFeatureInfoURL+'?format=json&wdpaid='+features[0].properties.WDPAID,
-				function(data){
-					paPopupContent = '<center class="available"><i class="fas fa-2x fa-paste"></i><p>'+
-									data[0].name+' ('+data[0].wdpaid+')</p>';
-					for(var key in data){
-						paPopupContent += '<i>'+data[key].pame_methodology+' ('+data[key].pame_year+')</i><hr>';
+				getFeatureInfoUrl+'?format=json&wdpaid='+features[0].properties.WDPAID,
+				function(result){
+					var data = result.records, paPopupContent;
+					if(data.length > 0){
+						paPopupContent = '<center class="available"><i class="fas fa-2x fa-paste"></i><p>'+
+										data[0].name+' ('+data[0].wdpaid+')</p>';
+						for(var key in data){
+							paPopupContent += '<i>'+data[key].pame_methodology+' ('+data[key].pame_year+')</i><hr>';
+						}
+						paPopupContent += '</center>';
+						
 					}
-					paPopupContent += '</center>';
+					else{
+						paPopupContent  = '<center class="available"><i class="fas fa-2x fa-paste"></i><p>No results found to be displayed.</p></center>';
+					}
 					new mapboxgl.Popup()
-						.setLngLat(e.lngLat)
-						.setHTML(paPopupContent)
-						.addTo(map);
+							.setLngLat(e.lngLat)
+							.setHTML(paPopupContent)
+							.addTo(map);
 				}
 			);
 		}
 	}
 
-	function showOneById(wdpaId){
+	function showFeatureById(wdpaId){
 		zoomToPA(wdpaId);
 
 		map.setFilter("wdpaSelected", ['==', 'WDPAID', wdpaId]);
@@ -147,12 +155,12 @@ var biopamaSimpleMap;
 		);
 	}
 
-	function showManyData(responseData){
+	function showFeaturesByIsoAndId(responseData){
 		// Initialize the variables used to display the right layer and the right viewport on the map.
 		var assessmentsByWDPA = ['in', 'WDPAID'];
 		var currentCountries = [];
 		$.each(responseData,function(idx, obj){
-			var thisWdpa = parseInt(obj.wdpaid, 10);
+			var thisWdpa = parseInt(obj.wdpa_id, 10);
 			if(assessmentsByWDPA.indexOf(thisWdpa) === -1) assessmentsByWDPA.push(thisWdpa); //collect all wdpa IDs
 			if(currentCountries.indexOf(obj.iso3) === -1) currentCountries.push(obj.iso3); //collect all countries to zoom to the group
 		});
@@ -162,15 +170,17 @@ var biopamaSimpleMap;
 		map.setLayoutProperty("wdpaRegionSelected", 'visibility', 'visible');
 
 		// Move the map viewport to the properly display the bbox cotaining the selected countries.
-		url = 'https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_bbox_for_countries_dateline_safe?iso3codes='+currentCountries.toString()+'&format=json&includemetadata=false';			
-		$.getJSON(url,function(responseData){
-			map.fitBounds(jQuery.parseJSON(responseData.records[0].get_bbox_for_countries_dateline_safe));
-		});
+		$.getJSON(
+			getCountryBboxUrl+'?format=json&includemetadata=false&iso3codes='+currentCountries.toString(),
+			function(responseData){
+				map.fitBounds(jQuery.parseJSON(responseData.records[0].get_bbox_for_countries_dateline_safe));
+			}
+		);
 	}
 
 	function zoomToPA(wdpaid){
 		$.ajax({
-			url: DOPAgetWdpaExtent+'format=json&wdpa_id='+wdpaid,
+			url: DOPAgetWdpaExtentUrl+'?format=json&wdpa_id='+wdpaid,
 			dataType: 'json',
 			success: function(data){
 				map.fitBounds(
@@ -181,14 +191,14 @@ var biopamaSimpleMap;
 				);
 			},
 			error: function(){
-				console.log("Something is wrong with the REST servce for PA bounds")
+				console.log("Something is wrong with the REST servce for PA bounds.");
 			}
 		});
 	}
 
-	biopamaSimpleMap = {
+	biopamaAssessmentMap = {
 		initMap: initMap,
-		showOneById: showOneById,
-		showManyData: showManyData
+		showFeatureById: showFeatureById,
+		showFeaturesByIsoAndId: showFeaturesByIsoAndId
 	}
 })(jQuery);
