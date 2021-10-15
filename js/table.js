@@ -238,17 +238,26 @@ var biopamaAssessmentTable;
 	}
 
 	function showRowsOnMap(responseData){
-		// Initialize the variables used to display the right layer and the right viewport on the map.
-		var wdpaIds = [];
-		var iso3Codes = [];
-		$.each(responseData,function(idx, obj){
-			var thisWdpa = parseInt(obj.wdpa_id, 10);
-			if(wdpaIds.indexOf(thisWdpa) === -1) wdpaIds.push(thisWdpa); //collect all wdpa IDs
-			if(iso3Codes.indexOf(obj.iso3) === -1) iso3Codes.push(obj.iso3); //collect all countries to zoom to the group
-		});
-
 		if(assessmentMap){
-			assessmentMap.showFeaturesByIdAndIso(wdpaIds, iso3Codes);
+			// Initialize the variables used to display the right layer and the right viewport on the map.
+			var wdpaIds = [];
+			var iso3Codes = [];
+			$.each(responseData,function(idx, obj){
+				var thisWdpa = parseInt(obj.wdpa_id, 10);
+				if(wdpaIds.indexOf(thisWdpa) === -1) wdpaIds.push(thisWdpa); //collect all wdpa IDs
+				if(iso3Codes.indexOf(obj.iso3) === -1) iso3Codes.push(obj.iso3); //collect all countries to zoom to the group
+			});
+
+			// Move the map viewport to the properly display the bbox cotaining the selected countries.
+			$.getJSON(
+				getCountryBboxUrl+'?format=json&includemetadata=false&iso3codes='+iso3Codes.toString(),
+				function(responseData){
+					assessmentMap.showFeaturesByIdAndBbox(
+						wdpaIds,
+						jQuery.parseJSON(responseData.records[0].get_bbox_for_countries_dateline_safe)
+					);
+				}
+			);			
 		}
 	}
 

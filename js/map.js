@@ -156,7 +156,7 @@ var biopamaAssessmentMap;
 		);
 	}
 
-	function showFeaturesByIdAndIso(wdpaIds, currentCountries){
+	function showFeaturesByIdAndBbox(wdpaIds, bbox){
 		// Initialize the variables used to display the right layer and the right viewport on the map.
 		var assessmentsByWDPA = ['in', 'WDPAID'].concat(wdpaIds);
 
@@ -164,13 +164,9 @@ var biopamaAssessmentMap;
 		map.setFilter("wdpaRegionSelected", assessmentsByWDPA);	
 		map.setLayoutProperty("wdpaRegionSelected", 'visibility', 'visible');
 
-		// Move the map viewport to the properly display the bbox cotaining the selected countries.
-		$.getJSON(
-			getCountryBboxUrl+'?format=json&includemetadata=false&iso3codes='+currentCountries.toString(),
-			function(responseData){
-				map.fitBounds(jQuery.parseJSON(responseData.records[0].get_bbox_for_countries_dateline_safe));
-			}
-		);
+		if(bbox){
+			map.fitBounds(bbox);
+		}
 	}
 
 	function zoomToPA(wdpaid){
@@ -194,6 +190,6 @@ var biopamaAssessmentMap;
 	biopamaAssessmentMap = {
 		initMap: initMap,
 		showFeatureById: showFeatureById,
-		showFeaturesByIdAndIso: showFeaturesByIdAndIso
+		showFeaturesByIdAndBbox: showFeaturesByIdAndBbox
 	}
 })(jQuery);
