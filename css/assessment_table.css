@@ -1,0 +1,16 @@
+.assessment_table{
+    color:black;
+}
+
+.assessment_table tbody tr.selected{
+    background-color: yellow;
+}
+
+.assessment_table tbody tr:hover{
+    background-color: #eee;
+}
+
+.assessment_table_filter{
+    display:flex;
+    padding:10px;
+}

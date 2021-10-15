@@ -4,39 +4,33 @@ main:
   dependencies:
     - core/jquery
     - core/jquery.once
-    - biopama_page_assessments/table
-    - biopama_page_assessments/map
+    - biopama_page_assessments/assessment_table
+    - biopama_page_assessments/assessment_map
 
-map:
+assessment_map:
   js:
-    js/map.js: {}
+    js/assessment_map.js: {}
     https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js: {external: true, minified: true}
     https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js: {external: true}
-  # css:
-  #   component:
-  #     css/page/override.css: {}
-  #     css/override.css: {}
+  css:
+    component:
+      css/assessment_map.css: {}
   dependencies:
-    # - core/drupal
-    # - core/drupal.ajax
+    - core/drupal
+    - core/drupal.ajax
     - core/jquery
     - core/jquery.once
     - biopama_libraries/mapbox
 
-table:
+assessment_table:
   js:
-    js/table.js: {}
-    # js/tools.js: {}
+    js/assessment_table.js: {}
     https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js: {external: true, minified: true}
     https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js: {external: true}
-  # css:
-  #   component:
-  #     css/page/override.css: {}
-  #     css/override.css: {}
+  css:
+    component:
+      css/assessment_table.css: {}
   dependencies:
-    # - core/drupal
-    # - core/drupal.ajax
     - core/jquery
     - core/jquery.once
-    # - core/drupalSettings
     - biopama_libraries/datatables

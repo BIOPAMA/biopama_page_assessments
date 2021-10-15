@@ -13,7 +13,7 @@ var biopamaAssessmentMap;
 	function initMap(onceMapLoadedcallback){
 		mapboxgl.accessToken = 'pk.eyJ1IjoiYmxpc2h0ZW4iLCJhIjoiMEZrNzFqRSJ9.0QBRA2HxTb8YHErUFRMPZg';
 		map = new mapboxgl.Map({
-			container: 'pame_assessments_map',
+			container: document.getElementById('assessment_map'),
 			style: 'mapbox://styles/jamesdavy/cjw25laqe0y311dqulwkvnfoc', //Andrews default new RIS v2 style based on North Star
 			attributionControl: true,
 			renderWorldCopies: true,
@@ -25,7 +25,7 @@ var biopamaAssessmentMap;
 		var mapInteractionControls = ["touchZoomRotate", "doubleClickZoom", "keyboard", "dragPan", "dragRotate", "boxZoom", "scrollZoom"];
 		mapInteractionControls.forEach(element => map[element].disable());
 
-		$('#pame_assessments_map').append('<div id="help-text">Double-click to pan and zoom the map.</div>');
+		$('#assessment_map').append('<div id="help-text">Double-click to pan and zoom the map.</div>');
 		$('#help-text').fadeIn();
 
 		var mapInteractionControls = ["touchZoomRotate", "doubleClickZoom", "keyboard", "dragPan", "dragRotate", "boxZoom", "scrollZoom"];

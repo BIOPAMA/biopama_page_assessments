@@ -151,7 +151,7 @@ var biopamaAssessmentTable;
 	}
 
 	function createTable(){
-		var $table = $('#table_assessments');
+		var $table = $('.assessment_table table');
 
 		var $tableHeader = $('<thead><tr></tr></thead>');
 		for(k in response_fields_to_table_map){
@@ -195,12 +195,12 @@ var biopamaAssessmentTable;
 			]
 		});
 		
-		$('#table_assessments_filter').prepend($('.dt-buttons.btn-group'));
+		$('.assessment_table_filter').prepend($('.dt-buttons.btn-group'));
 		$spinner.hide();
 	}
 
 	function handleClickOnTableRow(){
-		$('#table_assessments tbody tr').on('click', function(){
+		$('.assessment_table table tbody tr').on('click', function(){
 			if(!$(this).hasClass('selected')){
 				var wdpaId = parseInt($(this).find('td:first-child').text());
 
@@ -212,14 +212,14 @@ var biopamaAssessmentTable;
 				}
 
 				$('html, body').animate({
-					scrollTop: $("#pame_assessments_map").offset().top - 100
+					scrollTop: $("#assessment_map").offset().top - 100
 				}, 1000);
 			}
 		});
 	}
 
 	function setTableData(){
-		$spinner.show();		
+		$spinner.show();
 		var restArguments = generateRestArgs();
 		
 		var url = gdRestServiceUrl+"?format=json"+restArguments;
