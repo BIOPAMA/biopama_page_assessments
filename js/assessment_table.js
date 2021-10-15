@@ -1,4 +1,4 @@
-var gdRestServiceUrl = "http://my.biopama.org/rest/gd_page";
+var gdRestServiceUrl = "rest/gd_page";
 
 var biopamaAssessmentTable;
 
