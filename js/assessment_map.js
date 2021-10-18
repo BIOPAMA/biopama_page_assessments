@@ -1,3 +1,11 @@
+/**
+ * This component handles the generation of an assessment map (e.g., as in the /page_assessments module). It exposes the following api
+ *  
+ * - initMap: the function creating the whole map. A callback can be optinally passed and it will be eventually called after the map is fully loaded.
+ * - showFeatureById: allows to show (pan+zoom) to the element identified by the passed (wdpa-) id.
+ * - showFeaturesByIdAndBbox: allows to show to the elements identified by the passed (wdpa-) ids and with a viewport able to contain the passed bbox.
+ */
+
 var mapPolyHostUrl = "https://tiles.biopama.org/BIOPAMA_poly";
 var getFeatureInfoUrl = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_gdpame_biopama";
 var DOPAgetWdpaExtentUrl = "https://rest-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_wdpa_extent";

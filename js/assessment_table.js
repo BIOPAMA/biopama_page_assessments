@@ -1,3 +1,19 @@
+/**
+ * This component handles the generation of an assessment table (e.g., as in the /page_assessments module) to make it automatically generated, passing the columns structure 
+ * through a json object which should contain innerly as many other objects as the columns of the desrired table.
+ * Each of such objects should specify:
+ * - Key: the id of the coulmn within the table; such id should be equal to the name of the field in the response object from the service called in order to populate the table.
+ * - Object's properties:
+ * 		- name: The name that will be displayed as column header in the table.
+ * 		- filter: a json OPTIONAL defining the properties of the (optional) filter to be applied to the column
+ * 			- label: The text that will be displayed besides the filter.
+ * 			- default_option: The default selection item's text
+ * 			- default_value: The default selection item's value
+ * 			- get_value: A function, having as argument the service's response data, that can be used in order to give the selection item a dynamic value.
+ * 
+ * The generation of the table (which exploits the DataTable.js library) can be started by invoking the exposed initAssessmentTable function.
+ */
+
 var gdRestServiceUrl = "rest/gd_page";
 
 var biopamaAssessmentTable;
